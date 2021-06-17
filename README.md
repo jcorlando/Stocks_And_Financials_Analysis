@@ -1,1 +1,1 @@
-## Various Projects Analyzing Stock Markets And Different Financials
+## Various Projects Analyzing Stock Markets and Different Financials
