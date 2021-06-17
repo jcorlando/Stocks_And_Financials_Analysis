@@ -9,8 +9,13 @@ import yfinance as yf
 #####################################
 
 ################ Program Constants ################
+################ 1 minute Constants ###############
+_1D_ = -1440    # <----- These are Minute Constants
+_2D_ = -2880    # <----- These are Minute Constants
+_4D_ = -5760    # <----- These are Minute Constants
+_5D_ = -7200    # <----- These are Minute Constants
+################ 1 minute Constants ###############
 ################ Daily Constants #################
-_5D_ = -5       # <----- These are Daily Constants
 _1MO_ = -30     # <----- These are Daily Constants
 _3MO_ = -90     # <----- These are Daily Constants
 _6MO_ = -180    # <----- These are Daily Constants
@@ -18,10 +23,13 @@ _1Y_ = -365     # <----- These are Daily Constants
 _2Y_ = -730     # <----- These are Daily Constants
 _5Y_ = -1825    # <----- These are Daily Constants
 ################ Daily Constants #################
-############### 1 minute Constants ################
-_1D_ = -1440    # <----- These are Hourly Constants
-############### 1 minute Constants ################
 ################ Program Constants ################
+
+################## Changeable Constants ##################
+_TICKER_ = "DOGE-USD"   # <----- Change these Constants to
+_DAYPERIOD_ = _1MO_     # <----- View Specific Data 
+_MINPERIOD_ = _1D_      # <----- Specific to your Program
+################## Changeable Constants ##################
 
 #######################################################
 # use "period" instead of start/end
@@ -35,30 +43,29 @@ _1D_ = -1440    # <----- These are Hourly Constants
 # (optional, default is '1d')
 #################################################################
 
-################## Changeable Constants ##################
-_TICKER_ = "DOGE-USD"   # <----- Change these Constants to
-_DAYPERIOD_ = _1MO_     # <----- View Specific Data 
-################## Changeable Constants ##################
-
-######### Donwload Data Using the Supplied Constant ########
+########## Donwload Data Using the Supplied Constant ##########
 day_data = yf.download(_TICKER_, period="max")
-data_1m = yf.download(_TICKER_, period="5d", interval="1m")
-######### Donwload Data Using the Supplied Constant ########
+minute_data = yf.download(_TICKER_, period="5d", interval="1m")
+########## Donwload Data Using the Supplied Constant ##########
 
-#### Intra-Day Assign Variables, Configure, and Plot ###
-x_axis = (data_1m.index.tolist())[_1D_:-1]
-y_axis = (pd.Series(data_1m['Close']).tolist())[_1D_:-1]
+######## Assign Variables, Configure, and Plot Intra-Day ########
+plt.figure()
+x_axis = (minute_data.index.tolist())[_MINPERIOD_:]
+y_axis = (pd.Series(minute_data['Close']).tolist())[_MINPERIOD_:]
 plt.plot(x_axis, y_axis)
 plt.ylabel('Price')
 plt.xlabel('Date')
-plt.show()
-#### Intra-Day Assign Variables, Configure, and Plot ###
+######## Assign Variables, Configure, and Plot Intra-Day ########
 
 ########### Assign Variables, Configure, and Plot ############
+# plt.figure()
 # x_axis = (day_data.index.tolist())[_DAYPERIOD_:]
 # y_axis = (pd.Series(day_data['Close']).tolist())[_DAYPERIOD_:]
 # plt.plot(x_axis, y_axis)
 # plt.ylabel('Price')
 # plt.xlabel('Date')
-# plt.show()
 ########### Assign Variables, Configure, and Plot ############
+
+#---Show All Plots---
+plt.show()
+#---Show All Plots---
