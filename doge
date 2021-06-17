@@ -1,0 +1,64 @@
+#!/usr/bin/python3.8
+import matplotlib.pyplot as plt
+import pandas as pd
+import yfinance as yf
+
+#####################################
+# Ethereum Price Analysis Program
+# Using the python "yfinance" Library
+#####################################
+
+################ Program Constants ################
+################ Daily Constants #################
+_5D_ = -5       # <----- These are Daily Constants
+_1MO_ = -30     # <----- These are Daily Constants
+_3MO_ = -90     # <----- These are Daily Constants
+_6MO_ = -180    # <----- These are Daily Constants
+_1Y_ = -365     # <----- These are Daily Constants
+_2Y_ = -730     # <----- These are Daily Constants
+_5Y_ = -1825    # <----- These are Daily Constants
+################ Daily Constants #################
+############### 1 minute Constants ################
+_1D_ = -1440    # <----- These are Hourly Constants
+############### 1 minute Constants ################
+################ Program Constants ################
+
+#######################################################
+# use "period" instead of start/end
+# valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+# (optional, default is '1mo')
+#######################################################
+
+#################################################################
+# fetch data by interval (including intraday if period < 60 days)
+# valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+# (optional, default is '1d')
+#################################################################
+
+################## Changeable Constants ##################
+_TICKER_ = "DOGE-USD"   # <----- Change these Constants to
+_DAYPERIOD_ = _1MO_     # <----- View Specific Data 
+################## Changeable Constants ##################
+
+######### Donwload Data Using the Supplied Constant ########
+day_data = yf.download(_TICKER_, period="max")
+data_1m = yf.download(_TICKER_, period="5d", interval="1m")
+######### Donwload Data Using the Supplied Constant ########
+
+#### Intra-Day Assign Variables, Configure, and Plot ###
+x_axis = (data_1m.index.tolist())[_1D_:-1]
+y_axis = (pd.Series(data_1m['Close']).tolist())[_1D_:-1]
+plt.plot(x_axis, y_axis)
+plt.ylabel('Price')
+plt.xlabel('Date')
+plt.show()
+#### Intra-Day Assign Variables, Configure, and Plot ###
+
+########### Assign Variables, Configure, and Plot ############
+# x_axis = (day_data.index.tolist())[_DAYPERIOD_:]
+# y_axis = (pd.Series(day_data['Close']).tolist())[_DAYPERIOD_:]
+# plt.plot(x_axis, y_axis)
+# plt.ylabel('Price')
+# plt.xlabel('Date')
+# plt.show()
+########### Assign Variables, Configure, and Plot ############
