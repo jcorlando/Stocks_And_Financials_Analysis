@@ -10,7 +10,7 @@ import numpy as np
 # Using the python "yfinance" Library
 #####################################
 
-################## Program Constants ######################
+################## Program Constants #####################
 ################ 1 Minute Constants ###############
 _1D_ = -1440    # <----- These are Minute Constants
 _2D_ = -2880    # <----- These are Minute Constants
@@ -27,13 +27,13 @@ _1Y_ = -365     # <----- These are Daily Constants
 _2Y_ = -730     # <----- These are Daily Constants
 _5Y_ = -1825    # <----- These are Daily Constants
 ################ Daily Constants #################
-################## Changeable Constants ###################
+################## Changeable Constants ##################
 _TICKER_ = "DOGE-USD"   # <----- Change these Constants 
 _MINPERIOD_ = _2D_      # <----- to View Specific Data 
 _HOURPERIOD_ = _3MO_    # <----- Specific to your Program
 _DAYPERIOD_ = _6MO_     # <----- 
-################## Changeable Constants ###################
-################## Program Constants ######################
+################## Changeable Constants ##################
+################## Program Constants #####################
 
 #######################################################
 # use "period" instead of start/end
@@ -101,34 +101,121 @@ plt.ylabel('Price')
 plt.xlabel('Date')
 ################ Assign Variables, Configure, and Plot (Minute Plot) #################
 
-############ Assign Variables, Configure, and Plot #############
+################ Assign Variables, Configure, and Plot (Hourly Plot) #################
 plt.figure()
 plt.grid(True)
 #----------------------Plots for Original Data-----------------------------
 x_axis = (hour_data.index.tolist())[_HOURPERIOD_:]
 y_axis = (pd.Series(hour_data['Close']).tolist())[_HOURPERIOD_:]
-plt.plot(x_axis, y_axis, 'indigo', label="Orignal Data")
+plt.plot(x_axis, y_axis, 'violet', label="Orignal Data")
 #----------------------Plots for Original Data-----------------------------
 
 #-------------------Plots for 12-Hr Moving Average-----------------------
 x_axis_2 = (hour_data.index.tolist())[_HOURPERIOD_:]
 y_axis_2  = (hour_data["Close"].rolling(window=12).mean())[_HOURPERIOD_:]
-plt.plot(x_axis_2, y_axis_2, 'b', label="12-Hr Moving Average")
+plt.plot(x_axis_2, y_axis_2, 'indigo', label="12-Hr Moving Average")
 #-------------------Plots for 12-Hr Moving Average-----------------------
 
-#-------------------Plots for 1 Day Moving Average-----------------------
-x_axis_2 = (hour_data.index.tolist())[_HOURPERIOD_:]
-y_axis_2  = (hour_data["Close"].rolling(window=24).mean())[_HOURPERIOD_:]
-plt.plot(x_axis_2, y_axis_2, 'g', label="1 Day Moving Average")
-#-------------------Plots for 1 Day Moving Average-----------------------
+#-------------------Plots for 1-Day Moving Average-----------------------
+x_axis_3 = (hour_data.index.tolist())[_HOURPERIOD_:]
+y_axis_3  = (hour_data["Close"].rolling(window=24).mean())[_HOURPERIOD_:]
+plt.plot(x_axis_3, y_axis_3, 'b', label="1-Day Moving Average")
+#-------------------Plots for 1-Day Moving Average-----------------------
 
+#--------------------Plots for 5-Day Moving Average-----------------------
+x_axis_4 = (hour_data.index.tolist())[_HOURPERIOD_:]
+y_axis_4  = (hour_data["Close"].rolling(window=120).mean())[_HOURPERIOD_:]
+plt.plot(x_axis_4, y_axis_4, 'g', label="5-Day Moving Average")
+#--------------------Plots for 5-Day Moving Average-----------------------
 
+#--------------------Plots for 10-Day Moving Average----------------------
+x_axis_5 = (hour_data.index.tolist())[_HOURPERIOD_:]
+y_axis_5  = (hour_data["Close"].rolling(window=240).mean())[_HOURPERIOD_:]
+plt.plot(x_axis_5, y_axis_5, 'y', label="10-Day Moving Average")
+#--------------------Plots for 10-Day Moving Average----------------------
 
+#---------------------Plots for 25-Day Moving Average----------------------
+x_axis_6 = (hour_data.index.tolist())[_HOURPERIOD_:]
+y_axis_6  = (hour_data["Close"].rolling(window=600).mean())[_HOURPERIOD_:]
+plt.plot(x_axis_6, y_axis_6, 'orange', label="25-Day Moving Average")
+#---------------------Plots for 25-Day Moving Average----------------------
+
+#---------------------Plots for 50-Day Moving Average----------------------
+x_axis_7 = (hour_data.index.tolist())[_HOURPERIOD_:]
+y_axis_7  = (hour_data["Close"].rolling(window=1200).mean())[_HOURPERIOD_:]
+plt.plot(x_axis_7, y_axis_7, 'r', label="50-Day Moving Average")
+#---------------------Plots for 50-Day Moving Average----------------------
 plt.legend()
-plt.title('Hour by Hour Data Plot')
+if _HOURPERIOD_ == -120:
+    text_var = "5-Day "
+elif _HOURPERIOD_ == -360:
+    text_var = "15-Day "
+elif _HOURPERIOD_ == -744:
+    text_var = "1 Month "
+else:
+    text_var = "3 Month "
+plt.title(text_var + 'Hour by Hour Data Plot')
 plt.ylabel('Price')
 plt.xlabel('Date')
-############ Assign Variables, Configure, and Plot #############
+################ Assign Variables, Configure, and Plot (Hourly Plot) #################
+
+################ Assign Variables, Configure, and Plot (Daily Plot) #################
+plt.figure()
+plt.grid(True)
+#----------------------Plots for Original Data-----------------------------
+x_axis = (day_data.index.tolist())[_DAYPERIOD_:]
+y_axis = (pd.Series(day_data['Close']).tolist())[_DAYPERIOD_:]
+plt.plot(x_axis, y_axis, 'violet', label="Orignal Data")
+#----------------------Plots for Original Data-----------------------------
+
+#-------------------Plots for 5-Day Moving Average-----------------------
+x_axis_2 = (day_data.index.tolist())[_DAYPERIOD_:]
+y_axis_2  = (day_data["Close"].rolling(window=5).mean())[_DAYPERIOD_:]
+plt.plot(x_axis_2, y_axis_2, 'indigo', label="5-Day Moving Average")
+#-------------------Plots for 5-Day Moving Average-----------------------
+
+#-------------------Plots for 10-Day Moving Average-----------------------
+x_axis_3 = (day_data.index.tolist())[_DAYPERIOD_:]
+y_axis_3  = (day_data["Close"].rolling(window=10).mean())[_DAYPERIOD_:]
+plt.plot(x_axis_3, y_axis_3, 'b', label="10-Day Moving Average")
+#-------------------Plots for 10-Day Moving Average-----------------------
+
+#-------------------Plots for 25-Day Moving Average-----------------------
+x_axis_4 = (day_data.index.tolist())[_DAYPERIOD_:]
+y_axis_4  = (day_data["Close"].rolling(window=25).mean())[_DAYPERIOD_:]
+plt.plot(x_axis_4, y_axis_4, 'g', label="25-Day Moving Average")
+#-------------------Plots for 25-Day Moving Average-----------------------
+
+#-------------------Plots for 50-Day Moving Average-----------------------
+x_axis_5 = (day_data.index.tolist())[_DAYPERIOD_:]
+y_axis_5  = (day_data["Close"].rolling(window=50).mean())[_DAYPERIOD_:]
+plt.plot(x_axis_5, y_axis_5, 'y', label="50-Day Moving Average")
+#-------------------Plots for 50-Day Moving Average-----------------------
+
+#-------------------Plots for 100-Day Moving Average-----------------------
+x_axis_6 = (day_data.index.tolist())[_DAYPERIOD_:]
+y_axis_6  = (day_data["Close"].rolling(window=100).mean())[_DAYPERIOD_:]
+plt.plot(x_axis_6, y_axis_6, 'orange', label="100-Day Moving Average")
+#-------------------Plots for 100-Day Moving Average-----------------------
+
+#-------------------Plots for 200-Day Moving Average-----------------------
+x_axis_7 = (day_data.index.tolist())[_DAYPERIOD_:]
+y_axis_7  = (day_data["Close"].rolling(window=200).mean())[_DAYPERIOD_:]
+plt.plot(x_axis_7, y_axis_7, 'r', label="200-Day Moving Average")
+#-------------------Plots for 200-Day Moving Average-----------------------
+plt.legend()
+if _DAYPERIOD_ == -180:
+    text_var = "6 Month "
+elif _DAYPERIOD_ == -365:
+    text_var = "1 Year "
+elif _DAYPERIOD_ == -730:
+    text_var = "2 Year "
+else:
+    text_var = "5 Year "
+plt.title(text_var + 'Day by Day Data Plot')
+plt.ylabel('Price')
+plt.xlabel('Date')
+################ Assign Variables, Configure, and Plot (Daily Plot) #################
 
 #---Show All Plots---
 plt.show()
