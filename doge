@@ -10,11 +10,11 @@ import numpy as np
 # Using the python "yfinance" Library
 #####################################
 
-################### Program Constants ####################
-################## 1 Minute Constants #################
-_1D_ = -1440        # <----- These are Minute Constants
-_2D_ = -2880        # <----- These are Minute Constants
-################## 1 Minute Constants #################
+################## Program Constants ######################
+################ 1 Minute Constants ###############
+_1D_ = -1440    # <----- These are Minute Constants
+_2D_ = -2880    # <----- These are Minute Constants
+################ 1 Minute Constants ###############
 ################## 1 Hour Constants ###############
 _5DAY_ = -120   # <----- These are Hourly Constants
 _15DAY_ = -360  # <----- These are Hourly Constants
@@ -27,13 +27,13 @@ _1Y_ = -365     # <----- These are Daily Constants
 _2Y_ = -730     # <----- These are Daily Constants
 _5Y_ = -1825    # <----- These are Daily Constants
 ################ Daily Constants #################
-################## Changeable Constants ##################
+################## Changeable Constants ###################
 _TICKER_ = "DOGE-USD"   # <----- Change these Constants 
 _MINPERIOD_ = _2D_      # <----- to View Specific Data 
-_HOURPERIOD_ = _5DAY_   # <----- Specific to your Program
+_HOURPERIOD_ = _3MO_    # <----- Specific to your Program
 _DAYPERIOD_ = _6MO_     # <----- 
-################## Changeable Constants ##################
-################### Program Constants ####################
+################## Changeable Constants ###################
+################## Program Constants ######################
 
 #######################################################
 # use "period" instead of start/end
@@ -110,11 +110,19 @@ y_axis = (pd.Series(hour_data['Close']).tolist())[_HOURPERIOD_:]
 plt.plot(x_axis, y_axis, 'indigo', label="Orignal Data")
 #----------------------Plots for Original Data-----------------------------
 
-#-------------------Plots for 5-Day Moving Average-----------------------
+#-------------------Plots for 12-Hr Moving Average-----------------------
 x_axis_2 = (hour_data.index.tolist())[_HOURPERIOD_:]
-y_axis_2  = (hour_data["Close"].rolling(window=30).mean())[_HOURPERIOD_:]
-plt.plot(x_axis_2, y_axis_2, 'b', label="5-Day Moving Average")
-#-------------------Plots for 5-Day Moving Average-----------------------
+y_axis_2  = (hour_data["Close"].rolling(window=12).mean())[_HOURPERIOD_:]
+plt.plot(x_axis_2, y_axis_2, 'b', label="12-Hr Moving Average")
+#-------------------Plots for 12-Hr Moving Average-----------------------
+
+#-------------------Plots for 1 Day Moving Average-----------------------
+x_axis_2 = (hour_data.index.tolist())[_HOURPERIOD_:]
+y_axis_2  = (hour_data["Close"].rolling(window=24).mean())[_HOURPERIOD_:]
+plt.plot(x_axis_2, y_axis_2, 'g', label="1 Day Moving Average")
+#-------------------Plots for 1 Day Moving Average-----------------------
+
+
 
 plt.legend()
 plt.title('Hour by Hour Data Plot')
