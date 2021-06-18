@@ -54,7 +54,7 @@ day_data = yf.download(_TICKER_, period="max")
 ########## Donwload Data Using the Supplied Constant ##########
 
 ################ Assign Variables, Configure, and Plot (Minute Plot) #################
-plt.figure()
+plt.subplot(2, 2, 1)
 plt.grid(True)
 #----------------------Plots for Original Data--------------------------------
 x_axis = (minute_data.index.tolist())[_MINPERIOD_:]
@@ -102,7 +102,7 @@ plt.xlabel('Date')
 ################ Assign Variables, Configure, and Plot (Minute Plot) #################
 
 ################ Assign Variables, Configure, and Plot (Hourly Plot) #################
-plt.figure()
+plt.subplot(2, 2, 2)
 plt.grid(True)
 #----------------------Plots for Original Data-----------------------------
 x_axis = (hour_data.index.tolist())[_HOURPERIOD_:]
@@ -160,7 +160,7 @@ plt.xlabel('Date')
 ################ Assign Variables, Configure, and Plot (Hourly Plot) #################
 
 ################ Assign Variables, Configure, and Plot (Daily Plot) #################
-plt.figure()
+plt.subplot(2, 1, 2)
 plt.grid(True)
 #----------------------Plots for Original Data-----------------------------
 x_axis = (day_data.index.tolist())[_DAYPERIOD_:]
