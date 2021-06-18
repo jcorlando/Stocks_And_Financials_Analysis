@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-./price_plots &
+/home/juan/Desktop/Python/Stocks_and_Trading/price_plots &

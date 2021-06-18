@@ -6,7 +6,7 @@ import yfinance as yf
 import numpy as np
 
 #####################################
-# Ethereum Price Analysis Program
+# Crypto Price Analysis Program
 # Using the python "yfinance" Library
 #####################################
 
@@ -28,7 +28,10 @@ _2Y_ = -730     # <----- These are Daily Constants
 _5Y_ = -1825    # <----- These are Daily Constants
 ################ Daily Constants #################
 ################## Changeable Constants ##################
-_TICKER_ = "ETH-USD"   # <----- Change these Constants 
+#############################################
+# Popular Tickers: DOGE-USD, BTC-USD, ETH-USD
+#############################################
+_TICKER_ = "DOGE-USD"   # <----- Change these Constants 
 _MINPERIOD_ = _2D_      # <----- to View Specific Data 
 _HOURPERIOD_ = _3MO_    # <----- Specific to your Program
 _DAYPERIOD_ = _6MO_     # <----- 
