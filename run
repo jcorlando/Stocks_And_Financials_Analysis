@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-./doge &
+./price_plots &

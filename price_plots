@@ -28,7 +28,7 @@ _2Y_ = -730     # <----- These are Daily Constants
 _5Y_ = -1825    # <----- These are Daily Constants
 ################ Daily Constants #################
 ################## Changeable Constants ##################
-_TICKER_ = "DOGE-USD"   # <----- Change these Constants 
+_TICKER_ = "ETH-USD"   # <----- Change these Constants 
 _MINPERIOD_ = _2D_      # <----- to View Specific Data 
 _HOURPERIOD_ = _3MO_    # <----- Specific to your Program
 _DAYPERIOD_ = _6MO_     # <----- 
@@ -54,7 +54,7 @@ day_data = yf.download(_TICKER_, period="max")
 ########## Donwload Data Using the Supplied Constant ##########
 
 ################ Assign Variables, Configure, and Plot (Minute Plot) #################
-plt.subplot(2, 2, 1)
+plt.figure()
 plt.grid(True)
 #----------------------Plots for Original Data--------------------------------
 x_axis = (minute_data.index.tolist())[_MINPERIOD_:]
@@ -102,7 +102,7 @@ plt.xlabel('Date')
 ################ Assign Variables, Configure, and Plot (Minute Plot) #################
 
 ################ Assign Variables, Configure, and Plot (Hourly Plot) #################
-plt.subplot(2, 2, 2)
+plt.figure()
 plt.grid(True)
 #----------------------Plots for Original Data-----------------------------
 x_axis = (hour_data.index.tolist())[_HOURPERIOD_:]
@@ -160,7 +160,7 @@ plt.xlabel('Date')
 ################ Assign Variables, Configure, and Plot (Hourly Plot) #################
 
 ################ Assign Variables, Configure, and Plot (Daily Plot) #################
-plt.subplot(2, 1, 2)
+plt.figure()
 plt.grid(True)
 #----------------------Plots for Original Data-----------------------------
 x_axis = (day_data.index.tolist())[_DAYPERIOD_:]
