@@ -1,35 +1,39 @@
 #!/usr/bin/python3.8
+from cProfile import label
 import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
+import numpy as np
 
 #####################################
 # Ethereum Price Analysis Program
 # Using the python "yfinance" Library
 #####################################
 
-################ Program Constants ################
-################ 1 minute Constants ###############
-_1D_ = -1440    # <----- These are Minute Constants
-_2D_ = -2880    # <----- These are Minute Constants
-_4D_ = -5760    # <----- These are Minute Constants
-_5D_ = -7200    # <----- These are Minute Constants
-################ 1 minute Constants ###############
+################### Program Constants ####################
+################## 1 Minute Constants #################
+_1D_ = -1440        # <----- These are Minute Constants
+_2D_ = -2880        # <----- These are Minute Constants
+################## 1 Minute Constants #################
+################## 1 Hour Constants ###############
+_5DAY_ = -120   # <----- These are Hourly Constants
+_15DAY_ = -360  # <----- These are Hourly Constants
+_1MO_ = -744    # <----- These are Hourly Constants
+_3MO_ = -2232   # <----- These are Daily Constants
+################## 1 Hour Constants ###############
 ################ Daily Constants #################
-_1MO_ = -30     # <----- These are Daily Constants
-_3MO_ = -90     # <----- These are Daily Constants
 _6MO_ = -180    # <----- These are Daily Constants
 _1Y_ = -365     # <----- These are Daily Constants
 _2Y_ = -730     # <----- These are Daily Constants
 _5Y_ = -1825    # <----- These are Daily Constants
 ################ Daily Constants #################
-################ Program Constants ################
-
 ################## Changeable Constants ##################
 _TICKER_ = "DOGE-USD"   # <----- Change these Constants to
-_DAYPERIOD_ = _1MO_     # <----- View Specific Data 
-_MINPERIOD_ = _1D_      # <----- Specific to your Program
+_MINPERIOD_ = _2D_      # <----- Specific to your Program
+_HOURPERIOD_ = _5DAY_   # <----- View Specific Data 
+_DAYPERIOD_ = _6MO_     # <----- View Specific Data 
 ################## Changeable Constants ##################
+################### Program Constants ####################
 
 #######################################################
 # use "period" instead of start/end
@@ -43,19 +47,66 @@ _MINPERIOD_ = _1D_      # <----- Specific to your Program
 # (optional, default is '1d')
 #################################################################
 
-########## Donwload Data Using the Supplied Constant ##########
-day_data = yf.download(_TICKER_, period="max")
+########## Donwload Data Using the Supplied Constant ###########
 minute_data = yf.download(_TICKER_, period="5d", interval="1m")
-########## Donwload Data Using the Supplied Constant ##########
+hour_data = yf.download(_TICKER_, period="1y", interval="1h")
+day_data = yf.download(_TICKER_, period="max")
+########## Donwload Data Using the Supplied Constant ###########
 
-######## Assign Variables, Configure, and Plot Intra-Day ########
+################ Assign Variables, Configure, on Minute Plot #################
 plt.figure()
+plt.grid(True)
+#----------------------Plots for Original Data--------------------------------
 x_axis = (minute_data.index.tolist())[_MINPERIOD_:]
 y_axis = (pd.Series(minute_data['Close']).tolist())[_MINPERIOD_:]
-plt.plot(x_axis, y_axis)
+plt.plot(x_axis, y_axis, 'indigo', label="Orignal Data")
+#----------------------Plots for Original Data--------------------------------
+
+#-------------------Plots for 2 Hr Moving Average-----------------------------
+x_axis_2 = (minute_data.index.tolist())[_MINPERIOD_:]
+y_axis_2  = (minute_data["Close"].rolling(window=120).mean())[_MINPERIOD_:]
+plt.plot(x_axis_2, y_axis_2, 'b', label="2 Hr Moving Average")
+#-------------------Plots for 2 Hr Moving Average-----------------------------
+
+#-------------------Plots for 4 Hr Moving Average-----------------------------
+x_axis_3 = (minute_data.index.tolist())[_MINPERIOD_:]
+y_axis_3  = (minute_data["Close"].rolling(window=240).mean())[_MINPERIOD_:]
+plt.plot(x_axis_3, y_axis_3, 'g', label="4 Hr Moving Average")
+#-------------------Plots for 4 Hr Moving Average-----------------------------
+
+#-------------------Plots for 8 Hr Moving Average-----------------------------
+x_axis_4 = (minute_data.index.tolist())[_MINPERIOD_:]
+y_axis_4  = (minute_data["Close"].rolling(window=480).mean())[_MINPERIOD_:]
+plt.plot(x_axis_4, y_axis_4, 'y', label="8 Hr Moving Average")
+#-------------------Plots for 8 Hr Moving Average-----------------------------
+
+#-------------------Plots for 16 Hr Moving Average-----------------------------
+x_axis_5 = (minute_data.index.tolist())[_MINPERIOD_:]
+y_axis_5  = (minute_data["Close"].rolling(window=960).mean())[_MINPERIOD_:]
+plt.plot(x_axis_5, y_axis_5, 'orange', label="16 Hr Moving Average")
+#-------------------Plots for 16 Hr Moving Average-----------------------------
+
+#-------------------Plots for 32 Hr Moving Average-----------------------------
+x_axis_6 = (minute_data.index.tolist())[_MINPERIOD_:]
+y_axis_6  = (minute_data["Close"].rolling(window=1920).mean())[_MINPERIOD_:]
+plt.plot(x_axis_6, y_axis_6, 'r', label="32 Hr Moving Average")
+#-------------------Plots for 32 Hr Moving Average-----------------------------
+plt.legend()
+if _MINPERIOD_ == -2880:
+    text_var = "48 Hour "
+else:
+    text_var = "24 Hour "
+plt.title(text_var + 'Minute by Minute Data Plot')
 plt.ylabel('Price')
 plt.xlabel('Date')
-######## Assign Variables, Configure, and Plot Intra-Day ########
+################ Assign Variables, Configure, on Minute Plot #################
+
+
+
+
+
+
+
 
 ########### Assign Variables, Configure, and Plot ############
 # plt.figure()
